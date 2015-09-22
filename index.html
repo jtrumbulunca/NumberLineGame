@@ -33,7 +33,7 @@
             point.anchor.x = .5;
             point.anchor.y = .5;
 
-            point.position.x = i*offset;
+            point.position.x = (offset/2) + (i*offset);
             point.position.y = 150;
 
             point.scale.height = .5;
@@ -44,7 +44,7 @@
         }
     }
 
-    createNumPoints(10);
+    createNumPoints(8);
 
     // add the renderer view element to the DOM
     document.body.appendChild(renderer.view);
