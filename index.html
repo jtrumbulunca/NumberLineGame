@@ -16,7 +16,7 @@
 <script>
 
     // create an new instance of a pixi stage
-    var stage = new PIXI.Stage(0x66FF99);
+    var stage = new PIXI.Stage(0x66FF99, true);
 
     // create a renderer instance
     var renderer = new PIXI.autoDetectRenderer(400, 300);
@@ -29,18 +29,28 @@
         var offset = 400/amount;
 
         for (i = 0; i < amount ; i++) {
-            var point = new PIXI.Sprite(pointTex);
-            point.anchor.x = .5;
-            point.anchor.y = .5;
+            var point =
+            {sprite:new PIXI.Sprite(pointTex),
+            valueAtPoint:i
+            };
 
-            point.position.x = (offset/2) + (i*offset);
-            point.position.y = 150;
+            point.sprite.setInteractive(true);
 
-            point.scale.height = .5;
-            point.scale.width = .5;
+            point.sprite.anchor.x = .5;
+            point.sprite.anchor.y = .5;
+
+            point.sprite.position.x = (offset/2) + (i*offset);
+            point.sprite.position.y = 150;
+
+            point.sprite.scale.x = .5;
+            point.sprite.scale.y = .5;
+
+            point.sprite.click = function(data){
+                console.log(point.valueAtPoint);
+            }
 
             points.push(point);
-            stage.addChild(point);
+            stage.addChild(point.sprite);
         }
     }
 
