@@ -23,34 +23,40 @@
 
     //create point image
     var pointTex = PIXI.Texture.fromImage("point.png");
+
+    //create point array
     points = [];
+
+    function newPoint(value, offset) {
+        var newPt = {
+            sprite:new PIXI.Sprite(pointTex),
+            valueAtPoint:value
+        };
+
+        newPt.sprite.setInteractive(true);
+        newPt.sprite.anchor.x = .5;
+        newPt.sprite.anchor.y = .5;
+
+        newPt.sprite.position.x = (offset/2) + (i*offset);
+        newPt.sprite.position.y = 150;
+
+        newPt.sprite.scale.x = .5;
+        newPt.sprite.scale.y = .5;
+
+        newPt.sprite.click = function(){
+            console.log(newPt.valueAtPoint);
+        }
+
+        return newPt;
+    }
 
     var createNumPoints = function(amount) {
         var offset = 400/amount;
 
         for (i = 0; i < amount ; i++) {
-            var point =
-            {sprite:new PIXI.Sprite(pointTex),
-            valueAtPoint:i
-            };
-
-            point.sprite.setInteractive(true);
-
-            point.sprite.anchor.x = .5;
-            point.sprite.anchor.y = .5;
-
-            point.sprite.position.x = (offset/2) + (i*offset);
-            point.sprite.position.y = 150;
-
-            point.sprite.scale.x = .5;
-            point.sprite.scale.y = .5;
-
-            point.sprite.click = function(data){
-                console.log(point.valueAtPoint);
-            }
-
-            points.push(point);
-            stage.addChild(point.sprite);
+            var newPt = newPoint(i,offset);
+            points.push(newPt);
+            stage.addChild(newPt.sprite);
         }
     }
 
